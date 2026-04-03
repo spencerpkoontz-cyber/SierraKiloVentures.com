@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sierra Kilo Ventures</title>
+    <meta name="description" content="Unmanned systems engineering. DARPA Lift Challenge competitor.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0c0f;
+            --bg-elevated: #12151a;
+            --bg-card: #181c23;
+            --border: #2a2f38;
+            --border-accent: #3d6b5e;
+            --text-primary: #e8e9eb;
+            --text-secondary: #8b919c;
+            --text-muted: #565c68;
+            --accent: #4a9e7e;
+            --accent-bright: #5ec49b;
+            --accent-dim: #2d5e4b;
+            --mono: 'IBM Plex Mono', monospace;
+            --sans: 'IBM Plex Sans', sans-serif;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--sans);
+            background: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- Noise overlay for texture --- */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* --- Top bar --- */
+        .topbar {
+            border-bottom: 1px solid var(--border);
+            padding: 20px 0;
+        }
+        .topbar-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .topbar-logo {
+            font-family: var(--mono);
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+        .topbar-nav a {
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            letter-spacing: 0.08em;
+            transition: color 0.2s;
+        }
+        .topbar-nav a:hover { color: var(--accent-bright); }
+
+        /* --- Hero --- */
+        .hero {
+            padding: 100px 0 80px;
+            border-bottom: 1px solid var(--border);
+        }
+        .hero-label {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .hero-label::before {
+            content: '';
+            width: 32px;
+            height: 1px;
+            background: var(--accent);
+        }
+        .hero h1 {
+            font-family: var(--sans);
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 600;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+        .hero-sub {
+            font-size: 18px;
+            font-weight: 300;
+            color: var(--text-secondary);
+            max-width: 540px;
+            line-height: 1.7;
+        }
+
+        /* --- Sections --- */
+        .section {
+            padding: 64px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .section:last-of-type { border-bottom: none; }
+
+        .section-label {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .section-label::before {
+            content: '';
+            width: 16px;
+            height: 1px;
+            background: var(--text-muted);
+        }
+
+        .section p {
+            color: var(--text-secondary);
+            font-size: 16px;
+            margin-bottom: 16px;
+            max-width: 600px;
+        }
+        .section p:last-child { margin-bottom: 0; }
+
+        /* --- DARPA card --- */
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--accent);
+            padding: 32px;
+            margin-top: 24px;
+        }
+        .project-card h3 {
+            font-family: var(--mono);
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+        .project-card .status {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent-bright);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .project-card .status::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--accent-bright);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .project-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .specs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+        .spec-item {
+            font-family: var(--mono);
+        }
+        .spec-value {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+        .spec-label {
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* --- Contact / Links --- */
+        .links {
+            display: flex;
+            gap: 24px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+        .links a {
+            font-family: var(--mono);
+            font-size: 13px;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: 0.04em;
+            padding: 10px 20px;
+            border: 1px solid var(--accent-dim);
+            transition: all 0.2s;
+        }
+        .links a:hover {
+            background: var(--accent-dim);
+            color: var(--text-primary);
+            border-color: var(--accent);
+        }
+
+        /* --- Footer --- */
+        .footer {
+            padding: 40px 0;
+            text-align: center;
+        }
+        .footer p {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 600px) {
+            .hero { padding: 60px 0 48px; }
+            .section { padding: 48px 0; }
+            .project-card { padding: 24px; }
+            .specs { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* --- Entrance animations --- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(12px);
+            animation: fadeIn 0.6s ease forwards;
+        }
+        .fade-in:nth-child(2) { animation-delay: 0.1s; }
+        .fade-in:nth-child(3) { animation-delay: 0.2s; }
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="topbar">
+        <div class="container topbar-inner">
+            <span class="topbar-logo">Sierra Kilo</span>
+            <div class="topbar-nav">
+                <a href="https://www.linkedin.com/in/spencerkoontz" target="_blank">LinkedIn &nearr;</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <div class="hero-label fade-in">Unmanned Systems</div>
+            <h1 class="fade-in">Spencer Koontz</h1>
+            <p class="hero-sub fade-in">
+                Engineer building unmanned aircraft systems. Currently competing in the
+                DARPA Lift Challenge under <strong style="color:var(--text-primary)">Sierra Kilo Lift</strong>.
+            </p>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-label">Current Work</div>
+            <div class="project-card">
+                <h3>DARPA Lift Challenge</h3>
+                <div class="status">Active Development</div>
+                <p>
+                    Competing in DARPA's payload delivery challenge. The aircraft must carry
+                    110+ lbs while weighing under 55 lbs empty, fly a 5 NM course at 350 ft
+                    AGL, and perform autonomous VTOL operations. Architecture details coming
+                    after the May 2026 flight test deadline.
+                </p>
+                <div class="specs">
+                    <div class="spec-item">
+                        <div class="spec-value">&ge;2:1</div>
+                        <div class="spec-label">Payload Ratio</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-value">VTOL</div>
+                        <div class="spec-label">Launch &amp; Recovery</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-value">5 NM</div>
+                        <div class="spec-label">Course Length</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-value">&le;55 lb</div>
+                        <div class="spec-label">Empty Weight</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-label">About</div>
+            <p>
+                Sierra Kilo Ventures is the engineering vehicle behind my work in unmanned
+                systems and autonomous flight. I'm focused on the hard problems in aircraft
+                design &mdash; the trade-offs between aerodynamics, propulsion, and weight
+                that determine whether a concept actually flies.
+            </p>
+            <p>
+                I also write about drone warfare, aerial tactics, and the engineering trade-offs
+                that define modern unmanned combat systems.
+            </p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-label">Connect</div>
+            <p>Reach out if you're working on adjacent problems or interested in what we're building.</p>
+            <div class="links">
+                <a href="https://www.linkedin.com/in/spencerkoontz" target="_blank">LinkedIn</a>
+                <a href="mailto:spencer@sierrakiloventures.com">Email</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Sierra Kilo Ventures LLC</p>
+        </div>
+    </footer>
+
+</body>
+</html>
