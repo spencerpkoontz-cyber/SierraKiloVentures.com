@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts & Mentions — Sierra Kilo Ventures</title>
+    <meta name="description" content="Recent posts and press mentions from Spencer Koontz and Sierra Kilo Ventures.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0c0f;
+            --bg-elevated: #12151a;
+            --bg-card: #181c23;
+            --border: #2a2f38;
+            --border-accent: #3d6b5e;
+            --text-primary: #e8e9eb;
+            --text-secondary: #8b919c;
+            --text-muted: #565c68;
+            --accent: #4a9e7e;
+            --accent-bright: #5ec49b;
+            --accent-dim: #2d5e4b;
+            --mono: 'IBM Plex Mono', monospace;
+            --sans: 'IBM Plex Sans', sans-serif;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--sans);
+            background: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* --- Top bar --- */
+        .topbar {
+            border-bottom: 1px solid var(--border);
+            padding: 20px 0;
+        }
+        .topbar-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .topbar-logo {
+            font-family: var(--mono);
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            text-decoration: none;
+        }
+        .topbar-nav {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+        .topbar-nav a {
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            letter-spacing: 0.08em;
+            transition: color 0.2s;
+        }
+        .topbar-nav a:hover { color: var(--accent-bright); }
+        .topbar-nav a.active { color: var(--accent); }
+
+        /* --- Page hero --- */
+        .page-hero {
+            padding: 64px 0 48px;
+            border-bottom: 1px solid var(--border);
+        }
+        .page-hero-label {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .page-hero-label::before {
+            content: '';
+            width: 32px;
+            height: 1px;
+            background: var(--accent);
+        }
+        .page-hero h1 {
+            font-family: var(--sans);
+            font-size: clamp(24px, 4vw, 36px);
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+        }
+        .page-hero p {
+            font-size: 16px;
+            font-weight: 300;
+            color: var(--text-secondary);
+            max-width: 480px;
+        }
+
+        /* --- Sections --- */
+        .section {
+            padding: 56px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .section:last-of-type { border-bottom: none; }
+
+        .section-label {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .section-label::before {
+            content: '';
+            width: 16px;
+            height: 1px;
+            background: var(--text-muted);
+        }
+
+        /* --- Post / mention cards --- */
+        .card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .post-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--accent);
+            padding: 24px 28px;
+        }
+
+        .card-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .card-platform {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent-bright);
+        }
+        .card-date {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+        .card-date::before {
+            content: '·';
+            margin-right: 12px;
+            color: var(--border);
+        }
+
+        .card-title {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .card-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .card-link {
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: 0.04em;
+            transition: color 0.2s;
+        }
+        .card-link:hover { color: var(--accent-bright); }
+
+        /* --- Empty state --- */
+        .empty-state {
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--text-muted);
+            letter-spacing: 0.06em;
+            padding: 24px 0;
+        }
+
+        /* --- Footer --- */
+        .footer {
+            padding: 40px 0;
+            text-align: center;
+        }
+        .footer p {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 600px) {
+            .page-hero { padding: 48px 0 36px; }
+            .section { padding: 40px 0; }
+            .post-card { padding: 20px; }
+        }
+
+        /* --- Entrance animations --- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(12px);
+            animation: fadeIn 0.6s ease forwards;
+        }
+        .fade-in:nth-child(2) { animation-delay: 0.1s; }
+        .fade-in:nth-child(3) { animation-delay: 0.2s; }
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="topbar">
+        <div class="container topbar-inner">
+            <a href="/" class="topbar-logo">Sierra Kilo</a>
+            <div class="topbar-nav">
+                <a href="/posts.html" class="active">Posts</a>
+                <a href="https://www.linkedin.com/in/spencerkoontz" target="_blank">LinkedIn &nearr;</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-hero">
+        <div class="container">
+            <div class="page-hero-label fade-in">Activity</div>
+            <h1 class="fade-in">Posts &amp; Mentions</h1>
+            <p class="fade-in">Recent writing, press coverage, and podcast appearances.</p>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-label">LinkedIn</div>
+            <div class="card-list" id="linkedin-list">
+                <div class="empty-state">Loading...</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-label">Press</div>
+            <div class="card-list" id="press-list">
+                <div class="empty-state">Loading...</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-label">Podcasts</div>
+            <div class="card-list" id="podcast-list">
+                <div class="empty-state">Loading...</div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Sierra Kilo Ventures LLC</p>
+        </div>
+    </footer>
+
+    <script>
+        function formatDate(iso) {
+            const d = new Date(iso + 'T00:00:00');
+            return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+        }
+
+        function renderLinkedIn(posts, container) {
+            if (!posts.length) {
+                container.innerHTML = '<div class="empty-state">No posts yet.</div>';
+                return;
+            }
+            container.innerHTML = posts.map(p => `
+                <div class="post-card">
+                    <div class="card-meta">
+                        <span class="card-platform">LinkedIn</span>
+                        <span class="card-date">${formatDate(p.date)}</span>
+                    </div>
+                    <p class="card-text">${p.text}</p>
+                    <a class="card-link" href="${p.url}" target="_blank">View post &nearr;</a>
+                </div>
+            `).join('');
+        }
+
+        function renderPress(items, container) {
+            if (!items.length) {
+                container.innerHTML = '<div class="empty-state">No press coverage yet.</div>';
+                return;
+            }
+            container.innerHTML = items.map(p => `
+                <div class="post-card">
+                    <div class="card-meta">
+                        <span class="card-platform">${p.publication}</span>
+                        <span class="card-date">${formatDate(p.date)}</span>
+                    </div>
+                    <div class="card-title">${p.title}</div>
+                    <p class="card-text">${p.excerpt}</p>
+                    <a class="card-link" href="${p.url}" target="_blank">Read article &nearr;</a>
+                </div>
+            `).join('');
+        }
+
+        function renderPodcasts(items, container) {
+            if (!items.length) {
+                container.innerHTML = '<div class="empty-state">No podcast appearances yet.</div>';
+                return;
+            }
+            container.innerHTML = items.map(p => `
+                <div class="post-card">
+                    <div class="card-meta">
+                        <span class="card-platform">${p.show}</span>
+                        <span class="card-date">${formatDate(p.date)}</span>
+                    </div>
+                    <div class="card-title">${p.title}</div>
+                    <p class="card-text">${p.description}</p>
+                    <a class="card-link" href="${p.url}" target="_blank">Listen &nearr;</a>
+                </div>
+            `).join('');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('posts.json')
+                .then(r => r.json())
+                .then(data => {
+                    renderLinkedIn(data.linkedin || [], document.getElementById('linkedin-list'));
+                    renderPress(data.press || [], document.getElementById('press-list'));
+                    renderPodcasts(data.podcasts || [], document.getElementById('podcast-list'));
+                })
+                .catch(() => {
+                    ['linkedin-list', 'press-list', 'podcast-list'].forEach(id => {
+                        document.getElementById(id).innerHTML =
+                            '<div class="empty-state">Could not load content.</div>';
+                    });
+                });
+        });
+    </script>
+
+</body>
+</html>

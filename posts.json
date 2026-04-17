@@ -1,0 +1,12 @@
+{
+  "linkedin": [
+    {
+      "id": "example-post-1",
+      "date": "2026-04-15",
+      "text": "Replace this with your first LinkedIn post. The sync script will keep this section updated automatically once your API credentials are configured.",
+      "url": "https://www.linkedin.com/in/spencerkoontz"
+    }
+  ],
+  "press": [],
+  "podcasts": []
+}
