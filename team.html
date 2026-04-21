@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Posts & Mentions — Sierra Kilo Ventures</title>
-    <meta name="description" content="Recent posts and press mentions from Spencer Koontz and Sierra Kilo Ventures.">
+    <title>Team — Sierra Kilo Ventures</title>
+    <meta name="description" content="The team behind Sierra Kilo Ventures.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -131,94 +131,97 @@
         }
         .section:last-of-type { border-bottom: none; }
 
-        .section-label {
-            font-family: var(--mono);
-            font-size: 11px;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            margin-bottom: 28px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .section-label::before {
-            content: '';
-            width: 16px;
-            height: 1px;
-            background: var(--text-muted);
+        /* --- Team grid + card --- */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
         }
 
-        /* --- Post / mention cards --- */
-        .card-list {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .post-card {
+        .team-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-left: 3px solid var(--accent);
-            padding: 24px 28px;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
         }
 
-        .card-meta {
+        .team-avatar {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-        .card-platform {
+            justify-content: center;
             font-family: var(--mono);
-            font-size: 10px;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--accent-bright);
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            color: var(--accent);
+            margin-bottom: 20px;
+            overflow: hidden;
+            flex-shrink: 0;
         }
-        .card-date {
+        .team-avatar img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .team-name {
+            font-family: var(--sans);
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.3;
+            margin-bottom: 6px;
+        }
+
+        .team-role {
             font-family: var(--mono);
             font-size: 11px;
-            color: var(--text-muted);
-        }
-        .card-date::before {
-            content: '·';
-            margin-right: 12px;
-            color: var(--border);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 14px;
         }
 
-        .card-title {
-            font-size: 15px;
-            font-weight: 500;
-            color: var(--text-primary);
-            margin-bottom: 8px;
-            line-height: 1.4;
-        }
-
-        .card-text {
+        .team-bio {
             font-size: 14px;
             color: var(--text-secondary);
             line-height: 1.7;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
+            flex-grow: 1;
         }
 
-        .card-link {
+        .team-link {
             font-family: var(--mono);
             font-size: 12px;
             color: var(--accent);
             text-decoration: none;
             letter-spacing: 0.04em;
             transition: color 0.2s;
+            align-self: flex-start;
         }
-        .card-link:hover { color: var(--accent-bright); }
+        .team-link:hover { color: var(--accent-bright); }
 
-        /* --- Empty state --- */
-        .empty-state {
+        /* --- Disclaimer --- */
+        .team-disclaimer {
             font-family: var(--mono);
-            font-size: 12px;
+            font-size: 11px;
+            line-height: 1.7;
             color: var(--text-muted);
-            letter-spacing: 0.06em;
-            padding: 24px 0;
+            letter-spacing: 0.04em;
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            max-width: 600px;
         }
 
         /* --- Footer --- */
@@ -237,7 +240,9 @@
         @media (max-width: 600px) {
             .page-hero { padding: 48px 0 36px; }
             .section { padding: 40px 0; }
-            .post-card { padding: 20px; }
+            .team-grid { grid-template-columns: 1fr; gap: 16px; }
+            .team-card { padding: 24px; }
+            .team-avatar { width: 72px; height: 72px; font-size: 20px; }
         }
 
         /* --- Entrance animations --- */
@@ -246,8 +251,9 @@
             transform: translateY(12px);
             animation: fadeIn 0.6s ease forwards;
         }
-        .fade-in:nth-child(2) { animation-delay: 0.1s; }
-        .fade-in:nth-child(3) { animation-delay: 0.2s; }
+        .fade-in:nth-child(2) { animation-delay: 0.08s; }
+        .fade-in:nth-child(3) { animation-delay: 0.16s; }
+        .fade-in:nth-child(4) { animation-delay: 0.24s; }
         @keyframes fadeIn {
             to { opacity: 1; transform: translateY(0); }
         }
@@ -259,8 +265,8 @@
         <div class="container topbar-inner">
             <a href="/" class="topbar-logo">Sierra Kilo</a>
             <div class="topbar-nav">
-                <a href="/posts.html" class="active">Posts</a>
-                <a href="/team.html">Team</a>
+                <a href="/posts.html">Posts</a>
+                <a href="/team.html" class="active">Team</a>
                 <a href="https://www.linkedin.com/in/spencerkoontz" target="_blank">LinkedIn &nearr;</a>
             </div>
         </div>
@@ -268,36 +274,57 @@
 
     <header class="page-hero">
         <div class="container">
-            <div class="page-hero-label fade-in">Activity</div>
-            <h1 class="fade-in">Posts &amp; Mentions</h1>
-            <p class="fade-in">Recent writing, press coverage, and podcast appearances.</p>
+            <div class="page-hero-label fade-in">Contributors</div>
+            <h1 class="fade-in">The people behind Sierra Kilo.</h1>
+            <p class="fade-in">Engineers working on unmanned aircraft systems and autonomous flight.</p>
         </div>
     </header>
 
     <section class="section">
         <div class="container">
-            <div class="section-label">LinkedIn</div>
-            <div class="card-list" id="linkedin-list">
-                <div class="empty-state">Loading...</div>
-            </div>
-        </div>
-    </section>
+            <div class="team-grid">
 
-    <section class="section">
-        <div class="container">
-            <div class="section-label">Press</div>
-            <div class="card-list" id="press-list">
-                <div class="empty-state">Loading...</div>
-            </div>
-        </div>
-    </section>
+                <article class="team-card fade-in">
+                    <div class="team-avatar">
+                        SK
+                        <img src="images/team/spencer.jpg" alt="Spencer Koontz" onerror="this.style.display='none'">
+                    </div>
+                    <div class="team-name">Spencer Koontz</div>
+                    <div class="team-role">Founder &middot; Engineer</div>
+                    <p class="team-bio">Engineer building unmanned aircraft systems, after prior work in underwater ROV design. Focused on the trade-offs between capability, cost, and manufacturability that define modern UAS.</p>
+                    <a class="team-link" href="https://www.linkedin.com/in/spencerkoontz" target="_blank">LinkedIn &nearr;</a>
+                </article>
 
-    <section class="section">
-        <div class="container">
-            <div class="section-label">Podcasts</div>
-            <div class="card-list" id="podcast-list">
-                <div class="empty-state">Loading...</div>
+                <article class="team-card fade-in">
+                    <div class="team-avatar">
+                        JE
+                        <img src="images/team/josh.jpg" alt="Josh Engler" onerror="this.style.display='none'">
+                    </div>
+                    <div class="team-name">Josh Engler</div>
+                    <div class="team-role">Mechanical Design &middot; Variable Pitch</div>
+                    <p class="team-bio">Aerospace engineering student who led ground-up design on 5+ Shell Eco-marathon supermileage vehicles. Now contributing on the variable pitch system and airframe CAD for the DARPA Lift Challenge.</p>
+                    <a class="team-link" href="https://www.linkedin.com/in/josh-engler" target="_blank">LinkedIn &nearr;</a>
+                </article>
+
+                <article class="team-card fade-in">
+                    <div class="team-avatar">03</div>
+                    <div class="team-name">[Full Name]</div>
+                    <div class="team-role">[Role]</div>
+                    <p class="team-bio">[Short bio &mdash; 1 to 2 sentences on background and focus.]</p>
+                    <a class="team-link" href="#" target="_blank">LinkedIn &nearr;</a>
+                </article>
+
+                <article class="team-card fade-in">
+                    <div class="team-avatar">04</div>
+                    <div class="team-name">[Full Name]</div>
+                    <div class="team-role">[Role]</div>
+                    <p class="team-bio">[Short bio &mdash; 1 to 2 sentences on background and focus.]</p>
+                    <a class="team-link" href="#" target="_blank">LinkedIn &nearr;</a>
+                </article>
+
             </div>
+
+            <p class="team-disclaimer">Contributors participate in their personal capacity. Sierra Kilo Ventures is an independent company and is not affiliated with or endorsed by any government entity or academic institution.</p>
         </div>
     </section>
 
@@ -306,82 +333,6 @@
             <p>&copy; 2026 Sierra Kilo Ventures LLC</p>
         </div>
     </footer>
-
-    <script>
-        function formatDate(iso) {
-            const d = new Date(iso + 'T00:00:00');
-            return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-        }
-
-        function renderLinkedIn(posts, container) {
-            if (!posts.length) {
-                container.innerHTML = '<div class="empty-state">No posts yet.</div>';
-                return;
-            }
-            container.innerHTML = posts.map(p => `
-                <div class="post-card">
-                    <div class="card-meta">
-                        <span class="card-platform">LinkedIn</span>
-                        <span class="card-date">${formatDate(p.date)}</span>
-                    </div>
-                    <p class="card-text">${p.text}</p>
-                    <a class="card-link" href="${p.url}" target="_blank">View post &nearr;</a>
-                </div>
-            `).join('');
-        }
-
-        function renderPress(items, container) {
-            if (!items.length) {
-                container.innerHTML = '<div class="empty-state">No press coverage yet.</div>';
-                return;
-            }
-            container.innerHTML = items.map(p => `
-                <div class="post-card">
-                    <div class="card-meta">
-                        <span class="card-platform">${p.publication}</span>
-                        <span class="card-date">${formatDate(p.date)}</span>
-                    </div>
-                    <div class="card-title">${p.title}</div>
-                    <p class="card-text">${p.excerpt}</p>
-                    <a class="card-link" href="${p.url}" target="_blank">Read article &nearr;</a>
-                </div>
-            `).join('');
-        }
-
-        function renderPodcasts(items, container) {
-            if (!items.length) {
-                container.innerHTML = '<div class="empty-state">No podcast appearances yet.</div>';
-                return;
-            }
-            container.innerHTML = items.map(p => `
-                <div class="post-card">
-                    <div class="card-meta">
-                        <span class="card-platform">${p.show}</span>
-                        <span class="card-date">${formatDate(p.date)}</span>
-                    </div>
-                    <div class="card-title">${p.title}</div>
-                    <p class="card-text">${p.description}</p>
-                    <a class="card-link" href="${p.url}" target="_blank">Listen &nearr;</a>
-                </div>
-            `).join('');
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            fetch('posts.json')
-                .then(r => r.json())
-                .then(data => {
-                    renderLinkedIn(data.linkedin || [], document.getElementById('linkedin-list'));
-                    renderPress(data.press || [], document.getElementById('press-list'));
-                    renderPodcasts(data.podcasts || [], document.getElementById('podcast-list'));
-                })
-                .catch(() => {
-                    ['linkedin-list', 'press-list', 'podcast-list'].forEach(id => {
-                        document.getElementById(id).innerHTML =
-                            '<div class="empty-state">Could not load content.</div>';
-                    });
-                });
-        });
-    </script>
 
 </body>
 </html>
